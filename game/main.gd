@@ -13,4 +13,4 @@ func _ready() -> void:
 		print("OK")
 	else:
 		print("ERROR: ", error)
-	seedGenerator.generate(20001234512)
+	seedGenerator.generate(8331)

@@ -1,13 +1,55 @@
 [gd_scene format=3 uid="uid://cp6gydulc11np"]
 
 [ext_resource type="Script" uid="uid://xyfco76c5rix" path="res://game/main.gd" id="1_xtpaf"]
-[ext_resource type="Script" uid="uid://tes6ivmv2r5e" path="res://game/seed_generator.gd" id="2_emt18"]
+[ext_resource type="Script" uid="uid://tes6ivmv2r5e" path="res://game/seed_gen/seed_generator.gd" id="2_emt18"]
+[ext_resource type="Shader" uid="uid://cl4asabo1d7ln" path="res://game/seed_gen/worley.gdshader" id="2_xtpaf"]
+[ext_resource type="Shader" uid="uid://bddcwgecuxsku" path="res://game/seed_gen/voronoi.gdshader" id="4_vop5m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcog2"]
+shader = ExtResource("2_xtpaf")
+shader_parameter/grid_size = 7.0
+shader_parameter/seed1 = 1.0
+shader_parameter/seed2 = 1.0
+shader_parameter/seed3 = 1.0
+shader_parameter/seed4 = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3w6n"]
+shader = ExtResource("4_vop5m")
+shader_parameter/cell_density = 10.0
+shader_parameter/seed1 = 1.0
+shader_parameter/seed2 = 1.0
+shader_parameter/seed3 = 1.0
+shader_parameter/seed4 = 1.0
 
 [node name="Main" type="Node" unique_id=480641196]
 script = ExtResource("1_xtpaf")
 
 [node name="SeedGenerator" type="Node" parent="." unique_id=1195968493]
 script = ExtResource("2_emt18")
+
+[node name="WorleyNoise" type="SubViewport" parent="SeedGenerator" unique_id=173019560]
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SeedGenerator/WorleyNoise" unique_id=1739274678]
+material = SubResource("ShaderMaterial_vcog2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VoronoiNoise" type="SubViewport" parent="SeedGenerator" unique_id=72169960]
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SeedGenerator/VoronoiNoise" unique_id=694569832]
+material = SubResource("ShaderMaterial_s3w6n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="UI" type="Control" parent="." unique_id=1946397441]
 layout_mode = 3
